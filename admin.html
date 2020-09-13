@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 	<head><title>Shortener</title></head>
@@ -34,6 +36,27 @@
 			}
 
 		</style>
+		<!--
+
+		█░░ █▀█ █▀▀   █▀█ █▀▀ ▄▀█ █▀▄ █ █▄░█ █▀▀   █░░ █▀█ █▀▀ █ █▀▀
+		█▄▄ █▄█ █▄█   █▀▄ ██▄ █▀█ █▄▀ █ █░▀█ █▄█   █▄▄ █▄█ █▄█ █ █▄▄
+
+		-->
+		<?php
+			function Appendlogs() {
+				$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+				$txt = $_COOKIE['userid'];
+				fwrite($myfile, $txt);
+				echo $_COOKIE['userid'];
+				fclose($myfile);
+			}
+		?>
+		<!--
+
+		█░░ █▀█ █▀▀   █░█░█ █▀█ █ ▀█▀ █ █▄░█ █▀▀   █░░ █▀█ █▀▀ █ █▀▀
+		█▄▄ █▄█ █▄█   ▀▄▀▄▀ █▀▄ █ ░█░ █ █░▀█ █▄█   █▄▄ █▄█ █▄█ █ █▄▄
+
+		-->
 		<!--
 
 
@@ -106,23 +129,9 @@
 				document.getElementById('linkResult').innerHTML = d
 				alert('Link generated: '+d)
 			}
-			function appendLogs() {
-				 <?php
-					$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-					$txt = $_COOKIE['userid'];
-					fwrite($myfile, $txt);
-					echo $_COOKIE['userid'];
-					fclose($myfile);
-				?> 
-			}
 		
 		</script>
-		<!--
-
-		█░░ █▀█ █▀▀   █░█░█ █▀█ █ ▀█▀ █ █▄░█ █▀▀   █░░ █▀█ █▀▀ █ █▀▀
-		█▄▄ █▄█ █▄█   ▀▄▀▄▀ █▀▄ █ ░█░ █ █░▀█ █▄█   █▄▄ █▄█ █▄█ █ █▄▄
-
-		-->
+		
 
 
 		<!--
@@ -136,7 +145,7 @@
 			<button onclick="document.getElementById('cmd').innerHTML='$ Cookies: '+document.cookie">Get cookies</button>
 			<button onclick="eraseCookie('userid');document.getElementById('cmd').innerHTML='$ Deleted cookies'">Remove cookies</button>
 			<button onclick="if ">Check if previously visited</button>
-			<button onclick="appendLogs()">Write logs to log file</button>
+			<button onclick="var test = <?php echo Appendlogs();?>; alert(test)">e</button>
 			<button onclick="window.location = redirectWeb;document.getElementById('cmd').innerHTML='$ Redirecting...'">Redirect</button>
 			<button onclick="document.getElementById('cmd').innerHTML='$'">Clear</button>
 			<p style="color: #939393;" id="cmd">$</p>
@@ -165,15 +174,7 @@
 			<br>
 		</div>
 		<br>
-		<!--
-
-		█░░ █▀█ █▀▀   █▀█ █▀▀ ▄▀█ █▀▄ █ █▄░█ █▀▀   █░░ █▀█ █▀▀ █ █▀▀
-		█▄▄ █▄█ █▄█   █▀▄ ██▄ █▀█ █▄▀ █ █░▀█ █▄█   █▄▄ █▄█ █▄█ █ █▄▄
-
-		-->
-		<script type="text/javascript">
-
-		</script>
+		
 		<!--
 
 		█░░ █▀█ █▀▀   █░█░█ █ █▄░█ █▀▄ █▀█ █░█░█
