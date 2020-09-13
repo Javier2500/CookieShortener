@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head><title>Shortener</title></head>
+	<body>
+		<!--
+		
+		█▀▀ █▀ █▀
+		█▄▄ ▄█ ▄█
+
+		-->
+		<style type="text/css">
+			
+			body {
+				background-color: #3d3d5c;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			div{
+				background-color: #e0e0eb;
+				border-style: outset;
+			}
+			div.logWin {
+				border-style: none;
+				background-color: #303030;
+			}
+			p {
+				font: 12px Arial, sans-serif;
+			}
+			p.logWin {
+				font: 10px Consolas;
+				color: #00FF00;
+			}
+			b {
+				font-size: 12px
+			}
+
+		</style>
+		<!--
+
+
+		▀█▀ █ ▀█▀ █░░ █▀▀   █░█░█ █ █▄░█ █▀▄ █▀█ █░█░█
+		░█░ █ ░█░ █▄▄ ██▄   ▀▄▀▄▀ █ █░▀█ █▄▀ █▄█ ▀▄▀▄▀
+
+		-->
+		<div>
+			<h1>Cookie Shortener Admin panel</h1>
+			<h2>Programmed by: UnsuccesfulHttp</h2>
+			<br>
+		</div>
+		<br><br><br>
+
+		<!--
+
+		█░░ █ █▄░█ █▄▀   █ █▄░█ █▀▀ █▀█
+		█▄▄ █ █░▀█ █░█   █ █░▀█ █▀░ █▄█
+
+		-->
+
+		<div class="cookieTest">
+			<h2>Link information</h2>
+			<p>User ID</p>
+			<b id="demo">This link doesnt have a user ID</b>
+			<p>Redirect website:</p>
+			<b id="redirect">This link doesnt have a redirect link</b>
+		</div>
+		<br>
+		<!--
+
+		░░█ █▀   █░░ █▀█ █▀▀ █ █▀▀
+		█▄█ ▄█   █▄▄ █▄█ █▄█ █ █▄▄
+
+		-->
+		<script type="text/javascript">
+			
+			function findGetParameter(parameterName) {
+    		var result = null,
+        		tmp = [];
+    		location.search
+        		.substr(1)
+        		.split("&")
+        		.forEach(function (item) {
+          			tmp = item.split("=");
+          			if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        		});
+    		return result;
+    		}
+    		function eraseCookie(name) {
+    			document.cookie = name + '=; Max-Age=0'
+			}
+
+			user_id = findGetParameter('id');
+			redirectWeb = findGetParameter('r');
+			console.log("User id: "+user_id)
+			console.log("Redirect website: "+redirectWeb)
+			if (user_id != null){document.getElementById('demo').innerHTML = user_id}
+			if (redirectWeb != null){document.getElementById('redirect').innerHTML = redirectWeb}
+
+			document.cookie = "userid="+user_id+"; expires=Thu, 18 Dec 2069 12:00:00 UTC"
+			console.log("Added cookie -> "+document.cookie)
+
+			function generateLink() {
+				a = document.getElementById("bso").value
+				b = document.getElementById("uid").value
+				c = document.getElementById("link").value
+
+				d = a + "/?id=" + b + "&r=" + c
+				document.getElementById('linkResult').innerHTML = d
+				alert('Link generated: '+d)
+			}
+			function appendLogs() {
+				 <?php
+					$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+					$txt = $_COOKIE['userid'];
+					fwrite($myfile, $txt);
+					echo $_COOKIE['userid'];
+					fclose($myfile);
+				?> 
+			}
+		
+		</script>
+		<!--
+
+		█░░ █▀█ █▀▀   █░█░█ █▀█ █ ▀█▀ █ █▄░█ █▀▀   █░░ █▀█ █▀▀ █ █▀▀
+		█▄▄ █▄█ █▄█   ▀▄▀▄▀ █▀▄ █ ░█░ █ █░▀█ █▄█   █▄▄ █▄█ █▄█ █ █▄▄
+
+		-->
+
+
+		<!--
+
+		█▀▄ █▀▀ █▄▄ █░█ █▀▀   █▀█ ▄▀█ █▄░█ █▀▀ █░░
+		█▄▀ ██▄ █▄█ █▄█ █▄█   █▀▀ █▀█ █░▀█ ██▄ █▄▄
+
+		-->
+		<div id="debug" class="debug">
+			<h2>Debug panel</h2>
+			<button onclick="document.getElementById('cmd').innerHTML='$ Cookies: '+document.cookie">Get cookies</button>
+			<button onclick="eraseCookie('userid');document.getElementById('cmd').innerHTML='$ Deleted cookies'">Remove cookies</button>
+			<button onclick="if ">Check if previously visited</button>
+			<button onclick="appendLogs()">Write logs to log file</button>
+			<button onclick="window.location = redirectWeb;document.getElementById('cmd').innerHTML='$ Redirecting...'">Redirect</button>
+			<button onclick="document.getElementById('cmd').innerHTML='$'">Clear</button>
+			<p style="color: #939393;" id="cmd">$</p>
+		</div>
+		<br>
+		<!--
+
+		█░░ █ █▄░█ █▄▀   █▀▀ █▀▀ █▄░█
+		█▄▄ █ █░▀█ █░█   █▄█ ██▄ █░▀█
+
+		-->
+		<div>
+			<h2>Link generator</h2>
+			<form name="genl">
+				<label for="bso">Base shortener: </label>
+				<input type="text" name="bso" id="bso"><br>
+				<label for="uid">User ID: </label>
+				<input type="text" name="uid" id="uid"><br>
+				<label for="link">Link: </label>
+				<input type="text" name="link" id="link"><br>
+				<input type="button" onclick="generateLink()" value='Generate link'>
+			</form>
+			<br>
+			<h3>Result</h3>
+			<p id="linkResult">Undefined</p>
+			<br>
+		</div>
+		<br>
+		<!--
+
+		█░░ █▀█ █▀▀   █▀█ █▀▀ ▄▀█ █▀▄ █ █▄░█ █▀▀   █░░ █▀█ █▀▀ █ █▀▀
+		█▄▄ █▄█ █▄█   █▀▄ ██▄ █▀█ █▄▀ █ █░▀█ █▄█   █▄▄ █▄█ █▄█ █ █▄▄
+
+		-->
+		<script type="text/javascript">
+
+		</script>
+		<!--
+
+		█░░ █▀█ █▀▀   █░█░█ █ █▄░█ █▀▄ █▀█ █░█░█
+		█▄▄ █▄█ █▄█   ▀▄▀▄▀ █ █░▀█ █▄▀ █▄█ ▀▄▀▄▀
+
+		-->
+		<div>
+			<h2>Logs</h2>
+			<br>
+			<div class="logWin">
+				<p id="logLine1" class="logWin">~</p>
+				<p id="logLine2" class="logWin">~</p>
+				<p id="logLine3" class="logWin">~</p>
+				<p id="logLine4" class="logWin">~</p>
+				<p id="logLine5" class="logWin">~</p>
+				<p id="logLine6" class="logWin">~</p>
+				<p id="logLine7" class="logWin">~</p>
+				<p id="logLine8" class="logWin">~</p>
+				<p id="logLine9" class="logWin">~</p>
+				<p id="logLine10" class="logWin">~</p>
+			</div>
+			<button>Update logs</button>
+			<button>Go up</button>
+			<button>Go down</button>
+			<button>Start</button>
+			<button>End</button>
+		</div>
+	</body>
+</html>
